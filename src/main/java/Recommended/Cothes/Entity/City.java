@@ -17,12 +17,12 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 public class City {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String city;
-    private String city_sub;
-    private String local;
-    private int x;
-    private int y;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String state;
+	private String city;
+	private String local;
+	private int x;
+	private int y;
 }

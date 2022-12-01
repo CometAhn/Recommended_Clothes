@@ -1,0 +1,7 @@
+set global local_infile=1;
+
+LOAD DATA LOCAL INFILE "C:/test.csv"
+INTO TABLE addr.city
+FIELDS TERMINATED BY ","   # csv 구분자 입력
+LINES TERMINATED BY "\n" #라인 띄어쓰기
+IGNORE 1 ROWS; # 첫 행이 컬럼명인 경우, 해당 행 저장 X

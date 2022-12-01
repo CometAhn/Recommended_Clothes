@@ -26,8 +26,8 @@ DROP TABLE IF EXISTS `city`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `city` (
   `id` varchar(45) NOT NULL,
-  `city` varchar(45) NOT NULL,
-  `city_sub` varchar(45) DEFAULT NULL,
+  `state` varchar(45) NOT NULL,
+  `city` varchar(45) DEFAULT NULL,
   `local` varchar(45) DEFAULT NULL,
   `x` int NOT NULL,
   `y` int NOT NULL,
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-30 17:18:39
+-- Dump completed on 2022-12-01 19:28:42

@@ -164,7 +164,6 @@ public class RCController {
 					jObject.put("local", "error");
 				}
 
-				System.out.println("# RESULT : " + resultMap);
 				JSONObject json = new JSONObject(resultMap);
 /*
 				JSONObject post1Object = json.getJSONObject("response");
@@ -184,6 +183,9 @@ public class RCController {
 
 				// items로 부터 itemlist 를 받아오기 itemlist : 뒤에 [ 로 시작하므로 jsonarray이다
 				JSONArray parse_item = (JSONArray) parse_items.get("item");
+
+
+				System.out.println("# RESULT : " + parse_item);
 
 				String category;
 				JSONObject weather; // parse_item은 배열형태이기 때문에 하나씩 데이터를 하나씩 가져올때 사용합니다.

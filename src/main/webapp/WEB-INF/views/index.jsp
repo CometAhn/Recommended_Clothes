@@ -55,61 +55,17 @@
 
 
         <div id="error" style="display: none;">
-            <p class="errorp">오류가 발생했습니다. 다시 시도해주세요.</p>
+            <p class="errorp"></p>
         </div>
 
-        <script>
-            $(function () {
-                var availableTags = [<c:forEach var="object" items="${val}">"${object}", </c:forEach>];
-                $("#local").autocomplete({
-                    source: availableTags
-                });
-            });
-
-
-            $('#load').on("click", (e) => {
-
-                $('#loading').show();
-                const local = $('#local').val();
-                $.ajax({
-                    type: 'post',
-                    async: false,
-                    url: 'http://localhost/load',
-                    dataType: 'text',
-                    data: { id: local },
-                    success: function (data, textStatus) {
-
-                        $('#loading').hide();
-                        const jsonInfo = JSON.parse(data);
-
-                        if (jsonInfo.local === 'error') {
-                            console.log('에러');
-                            $("#container").hide();
-                            $("#error").show();
-                        } else {
-                            console.log("도 : " + jsonInfo.city);
-                            console.log("시/군/구 : " + jsonInfo.city_sub);
-                            console.log("읍/면/동 : " + jsonInfo.local);
-                            console.log("x값 : " + jsonInfo.position_x);
-                            console.log("y값 : " + jsonInfo.position_y);
-                            console.log("온도 : " + jsonInfo.temp + "도");
-                            console.log("풍속 : " + jsonInfo.wsd + "m/s");
-                            console.log("하늘상태 : " + jsonInfo.sky);
-                            console.log("강수형태 : " + jsonInfo.pty);
-                            console.log("옷 : " + jsonInfo.info);
-
-                            $("#container").show();
-                            $("#error").hide();
-                            //$("#time").text(jsonInfo.time)
-                            $("#temp").text(jsonInfo.temp + "°C")
-                            $("#info").text(jsonInfo.info)
-                            $("#sky").text(jsonInfo.sky)
-                            $("#wsd").text(jsonInfo.wsd + "m/s")
-                            $("#pty").text(jsonInfo.pty)
-                        }
-                    }
-                })
-            })
-        </script>
+    <script>
+    $(function () {
+        var availableTags = [<c:forEach var="object" items="${val}">"${object}", </c:forEach>];
+        $("#local").autocomplete({
+            source: availableTags
+        });
+    });
+    </script>
+    <script src="/js/load.js"></script>
 </body>
 </html>

@@ -1,8 +1,8 @@
-package Recommended.Cothes;
+package Recommended.Clothes;
 
-import Recommended.Cothes.DAO.CityDAO;
-import Recommended.Cothes.DAO.WeatherDAO;
-import Recommended.Cothes.Entity.City;
+import Recommended.Clothes.DAO.CityDAO;
+import Recommended.Clothes.DAO.WeatherDAO;
+import Recommended.Clothes.Entity.City;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class RCController {
 		this.dao = dao;
 		this.cdao = cdao;
 	}
-	
+
 	@GetMapping("")
 	public String autocomplete(Model m) throws Exception {
 

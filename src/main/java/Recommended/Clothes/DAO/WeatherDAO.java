@@ -1,4 +1,4 @@
-package Recommended.Cothes.DAO;
+package Recommended.Clothes.DAO;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;

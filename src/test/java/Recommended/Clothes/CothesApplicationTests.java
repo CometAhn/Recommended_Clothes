@@ -1,10 +1,10 @@
-package Recommended.Cothes;
+package Recommended.Clothes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CothesApplicationTests {
+class ClothesApplicationTests {
 
 	@Test
 	void contextLoads() {

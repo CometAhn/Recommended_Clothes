@@ -1,7 +1,7 @@
-package Recommended.Cothes.DAO;
+package Recommended.Clothes.DAO;
 
-import Recommended.Cothes.Entity.City;
-import Recommended.Cothes.Repository.CityRepository;
+import Recommended.Clothes.Entity.City;
+import Recommended.Clothes.Repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
-package Recommended.Cothes.Repository;
+package Recommended.Clothes.Repository;
 
-import Recommended.Cothes.Entity.City;
+import Recommended.Clothes.Entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

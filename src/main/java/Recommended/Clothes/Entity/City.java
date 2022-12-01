@@ -1,4 +1,4 @@
-package Recommended.Cothes.Entity;
+package Recommended.Clothes.Entity;
 
 
 import lombok.AllArgsConstructor;

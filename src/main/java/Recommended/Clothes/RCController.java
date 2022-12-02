@@ -151,13 +151,13 @@ public class RCController {
 
 					JSONObject parse_response = json.getJSONObject("response");
 
-					System.out.println(parse_response);
+					// System.out.println(parse_response); // test
 
 					JSONObject parse_header = (JSONObject) parse_response.get("header");
 
 					String parse_resultCode = (String) parse_header.get("resultCode");
 
-					System.out.println("결과값 : " + parse_resultCode);
+					// System.out.println("결과값 : " + parse_resultCode); // test
 
 					if (parse_resultCode.equals("00")) {
 
@@ -409,6 +409,6 @@ public class RCController {
 
 			}
 		}
-		System.out.println(jObject);
+		// System.out.println(jObject); // test
 	}
 }

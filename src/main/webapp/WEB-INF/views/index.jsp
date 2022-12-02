@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="url shortener">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="단축 주소 생성">
+    <meta property="og:title" content="옷">
     <meta property="og:url" content="ipi.pw">
-    <meta property="og:description" content="단축 주소 생성 웹페이지입니다.">
+    <meta property="og:description" content="기온 별 옷">
     <meta property="og:image" content="test.png">
     <title>기온 별 옷 추천</title>
-    <link href="http://localhost/css/main.css?test" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -42,15 +42,19 @@
         </div>
 
         <div id="container" style="display: none;">
+            <div id="errorhp">
+                <h4 id="errorhour"></h4>시 데이터가 존재하지 않아 이전 데이터를 불러옵니다.<br><br><br>
+            </div>
             기준 시간 :
-            <h4 id="time"></h4><br><br>
+            <h4 id="baseTime"></h4><br><br>
             현재 기온은
             <h4 id="temp"></h4> 입니다.<br><br>
             추천하는 옷차림은 '
             <h4 id="info"></h4>'입니다.<br><br>
-            오늘 하늘은 '
+            현재 하늘은 '
             <h4 id="sky"></h4>'상태입니다.<br><br>
-            풍속은 '<h4 id="wsd"></h4>'이고, 강수 형태는 '<h4 id="pty"></h4>'입니다.
+            현재 습도는 '<h4 id="reh"></h4>'입니다.<br><br>
+            바람은 '<h4 id="compass"></h4><h4 id="wsd"></h4>'이고, <h4 id="pty"></h4>
         </div>
 
 
@@ -65,7 +69,14 @@
             source: availableTags
         });
     });
+      $('#load').click(function () {
+        $('#loading').show();
+        window.setTimeout(function(){
+                         load();
+                          }, 10);
+
+      });
     </script>
-    <script src="/js/load.js"></script>
+    <script src="/js/load.js?aaa"></script>
 </body>
 </html>

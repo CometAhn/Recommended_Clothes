@@ -37,7 +37,7 @@ public class WeatherDAO {
 
 		try {
 			conn = (HttpURLConnection) apiURL.openConnection();
-			conn.setConnectTimeout(5000);
+			conn.setConnectTimeout(20000);
 			conn.setReadTimeout(5000);
 			conn.setDoOutput(true);
 

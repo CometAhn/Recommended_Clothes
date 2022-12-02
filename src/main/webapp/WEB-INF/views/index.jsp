@@ -49,7 +49,7 @@
         현재 하늘은 <h4 id="sky"></h4><br><br>
         현재 습도는 '<h4 id="reh"></h4>'입니다.<br><br>
         바람은 '<h4 id="compass"></h4><h4 id="wsd"></h4>'이고, <h4 id="pty"></h4><br>
-        <p style="font-size:14px; color: red; margin:5px;">※ 최저, 최고 온도 및 구름은 전날 23시 예측 자료이므로, 차이가 있을 수 있습니다.</p><br>
+        <p style="font-size:14px; color: red; margin:5px;">※ 최저/최고 온도 및 구름은 작일 23시 예측 자료이므로, 차이가 있을 수 있습니다.</p><br>
     </div>
 
     <div id="error" style="display: none;">

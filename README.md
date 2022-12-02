@@ -24,6 +24,8 @@
 
 ## Screenshot
 
+![index](/Etc/index.png "index")
+![list](/Etc/list.png "list")
 ![output](/Etc/output.png "output")
 ![output1](/Etc/output1.png "output1")
 ![error](/Etc/error.png "error")

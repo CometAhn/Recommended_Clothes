@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.*;
@@ -25,7 +22,6 @@ import java.util.*;
 @Controller
 @CrossOrigin
 public class RCController {
-
 
 	final WeatherDAO dao;
 	final CityDAO cdao;
@@ -43,7 +39,7 @@ public class RCController {
 		int i = 0;
 		String val[] = new String[3792];
 		for (City check : result) {
-			if (!check.getLocal().equals("") || !check.getLocal().equals("null")) {
+			if (!check.getLocal().equals("") && !check.getLocal().equals("null")) {
 				val[i] = check.getCity() + " " + check.getLocal();
 				i++;
 			}
@@ -54,20 +50,21 @@ public class RCController {
 		return "/index";
 	}
 
-
-	// Local로 날씨 조회하자.
+	// 기상 정보 조회
 	@PostMapping("/load")
 	public void loadweather(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 
 		City city = null;
-		System.out.println("값 잘 나와? : " + request.getParameter("id"));
+		// System.out.println("값 잘 나와? : " + request.getParameter("id")); // test
+
 		String[] str = request.getParameter("id").split(" ");
 
 		PrintWriter out = response.getWriter();
 		JSONObject jObject = new JSONObject();
 
+		// 초단기 예보
 		int i = 0;
 		while (true) {
 			if (str.length == 2) {
@@ -75,26 +72,13 @@ public class RCController {
 
 				if (city != null) {
 
-					//배열을 저장할 jObject
-
-
-					System.out.println("값 잘 나오니? x : " + city.getX() + ", y : " + city.getY());
+					//System.out.println("값 잘 나오니? x : " + city.getX() + ", y : " + city.getY()); // test
 
 					jObject.put("local", city.getLocal());
 					jObject.put("city", city.getState());
 					jObject.put("city_sub", city.getCity());
 					jObject.put("position_x", city.getX());
 					jObject.put("position_y", city.getY());
-
-
-        /*
-            @ API LIST ~
-
-            getUltraSrtNcst 초단기실황조회
-            getUltraSrtFcst 초단기예보조회
-            getVilageFcst 동네예보조회
-            getFcstVersion 예보버전조회
-        */
 
 					Calendar calendar = Calendar.getInstance();
 
@@ -104,19 +88,19 @@ public class RCController {
 					String nowdate = sdf.format(date);
 
 					// 결과 출력
-					System.out.println(nowdate);
+					//System.out.println(nowdate); // test
 
 					// 현재 시간
 					LocalTime time = LocalTime.now();
 
 					// 시
-					// 초단기실황은 그냥 그 시 출력하면된다.
+					// 초단기실황은  현재 시간 출력하면 된다.
 					int hour = time.getHour();
 
 					// 정시에 돌리면 요청을 받아도 결과를 못 받아 올 경우가 있음.
 					// 이럴경우 이전 시간으로 재요청하여 결과를 받아온다.
 
-					System.out.println("이전 시간" + hour);
+					//System.out.println("이전 시간" + hour); // test
 
 					if (hour < 10) {
 						if (hour == 0) {
@@ -129,48 +113,20 @@ public class RCController {
 					} else {
 						outtime = Integer.toString(hour - i) + "00";
 					}
-				/*
-				int i = 1;
-
-				if (hour < 5) {
-					calendar.add(Calendar.DATE, -1);
-					nowdate = sdf.format(calendar.getTime());
-					hour = 23;
-					outtime = Integer.toString(hour) + "00";
-				} else {
-					while (true) {
-						int x = (i * 3) + 2;
-						if (x > hour) {
-							x = ((i - 1) * 3) + 2;
-							if (x < 10) {
-								outtime = "0" + Integer.toString(x) + "00";
-								break;
-							} else {
-								outtime = Integer.toString(x) + "00";
-								break;
-							}
-
-						}
-						i++;
-						System.out.println("도는중");
-						System.out.println(i);
-
-					}
-				}
-				*/
 
 					// 시, 분, 초 출력
-					System.out.println("시간" + outtime);
+					//System.out.println("시간" + outtime); // test
 
-				/*
-				@ API LIST ~
+                    /*
+                      @ API LIST ~
 
-				getUltraSrtNcst 초단기실황조회
-				getUltraSrtFcst 초단기예보조회
-				getVilageFcst 동네예보조회
-				getFcstVersion 예보버전조회
-				*/
+                      getUltraSrtNcst 초단기실황조회
+                      getUltraSrtFcst 초단기예보조회
+                      getVilageFcst 동네예보조회
+                      getFcstVersion 예보버전조회
+                    */
 
+					// 초단기 실황
 					String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst"
 							+ "?serviceKey=ndK0k4so%2BUvfMY5Oh7XCWIREWTAOm%2BS%2BcE1eMJA9tXyNoTRgxC7kPb7CEqwmq4d%2FqC2BYsipas9jsbR7OkjI%2FA%3D%3D"
 							+ "&dataType=JSON"            // JSON, XML
@@ -180,6 +136,7 @@ public class RCController {
 							+ "&base_time=" + outtime           // 발표시각
 							+ "&nx=" + city.getX()                    // 예보지점 X 좌표
 							+ "&ny=" + city.getY();                  // 예보지점 Y 좌표
+
 
 					HashMap<String, Object> resultMap = null;
 					try {
@@ -191,16 +148,7 @@ public class RCController {
 					}
 
 					JSONObject json = new JSONObject(resultMap);
-/*
-				JSONObject post1Object = json.getJSONObject("response");
-				JSONObject post1Object1 = post1Object.getJSONObject("body");
-				JSONObject post1Object2 = post1Object1.getJSONObject("items");
-				System.out.println("원하는값 나오니? : " + post1Object2);
 
-				// items로 부터 itemlist 를 받아오기 itemlist : 뒤에 [ 로 시작하므로 jsonarray이다
-				JSONArray parse_item = (JSONArray) post1Object2.get("item");
-*/
-					// Top레벨 단계인 response 키를 가지고 데이터를 파싱합니다.
 					JSONObject parse_response = json.getJSONObject("response");
 
 					System.out.println(parse_response);
@@ -213,44 +161,39 @@ public class RCController {
 
 					if (parse_resultCode.equals("00")) {
 
-						// response 로 부터 body 찾아옵니다.
 						JSONObject parse_body = (JSONObject) parse_response.get("body");
-						// body 로 부터 items 받아옵니다.
+
 						JSONObject parse_items = (JSONObject) parse_body.get("items");
 
-						// items로 부터 itemlist 를 받아오기 itemlist : 뒤에 [ 로 시작하므로 jsonarray이다
 						JSONArray parse_item = (JSONArray) parse_items.get("item");
 
 
-						System.out.println("# RESULT : " + parse_item);
+						// System.out.println("# RESULT : " + parse_item); // test
 
 						String category;
-						JSONObject weather; // parse_item은 배열형태이기 때문에 하나씩 데이터를 하나씩 가져올때 사용합니다.
+						JSONObject weather;
 
-						// 필요한 데이터만 가져오려고합니다.
 						for (int j = 0; j < parse_item.length(); j++) {
 							weather = (JSONObject) parse_item.get(j);
 							String baseTime = (String) weather.get("baseTime");
-							//String fcst_Timecst_Value = ((String) weather.get("fcstValue")); //실수로된 값과 정수로된 값이 둘다 있어서 실수로 통일했습니다.
 							String obsrValue = (String) weather.get("obsrValue");
 							category = (String) weather.get("category");
 
-							// 출력합니다.
+							// 결과 출력 test
+							/*
 							System.out.print("배열의 " + j + "번째 요소");
 							System.out.print("   시간 : " + baseTime);
 							System.out.print("   카테고리 : " + category);
 							System.out.print("   값 : " + obsrValue);
 							System.out.println();
+							*/
 
-							if (j == 1) {
-						/*StringBuffer buf = new StringBuffer(baseTime);
-						buf.insert(2, "시 ");
-						buf.insert(6, "분");*/
-
+							if (j == 1) { // 받아온 기상 시간
 								baseTime = baseTime.substring(0, 2) + "시 정각";
 
 								jObject.put("baseTime", baseTime);
 							}
+
 							if (category.equals("T1H")) { // 온도
 								jObject.put("temp", obsrValue);
 								if (Double.parseDouble(obsrValue) > 28)
@@ -277,18 +220,6 @@ public class RCController {
 							if (category.equals("PTY")) {// 강수형태
 								jObject.put("pty", obsrValue);
 
-						/*
-						if (obsrValue.equals("0"))
-							jObject.put("pty", "없음");
-						if (obsrValue.equals("1"))
-							jObject.put("pty", "비");
-						if (obsrValue.equals("2"))
-							jObject.put("pty", "비/눈");
-						if (obsrValue.equals("3"))
-							jObject.put("pty", "눈");
-						if (obsrValue.equals("4"))
-							jObject.put("pty", "소나기");
-							*/
 							}
 							if (category.equals("RN1")) // 한시간 강수량 mm
 								jObject.put("rn1", obsrValue);
@@ -334,10 +265,11 @@ public class RCController {
 
 
 						}
-						out.print(jObject);
+						// System.out.println(jObject); // test
 						break;
 					} else {
-
+						// 데이터가 없을 때 한 시간 전 정보를 불러오기
+						// 몇 시 정보가 없는지 출력하기 위해 사용
 						jObject.put("errorcheck", "1");
 						jObject.put("errorhour", hour);
 						i++;
@@ -356,5 +288,127 @@ public class RCController {
 			}
 		}
 
+		// 예보
+		while (true) {
+			if (str.length == 2) {
+				//todo : 두 번 요청함. while문 밖에 빼서 한 번하던지 수정해야 함.
+				//       쓸모없이 트래픽을 늘리는 요소.
+				city = cdao.getLocal(str[0], str[1]);
+
+				if (city != null) {
+
+					Calendar calendar = Calendar.getInstance();
+
+					String outtime;
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+
+					calendar.add(Calendar.DATE, -1);
+					String yesterday = sdf.format(calendar.getTime());
+
+					// 현재 시간
+					LocalTime time = LocalTime.now();
+
+					// 시
+					int hour = time.getHour();
+
+					if (hour < 10) {
+						outtime = "0" + Integer.toString(hour) + "00";
+					} else {
+						outtime = Integer.toString(hour) + "00";
+					}
+
+					// System.out.println("이거 이상하니?" + yesterday); // test
+					// 예보 조회
+					String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"
+							+ "?serviceKey=ndK0k4so%2BUvfMY5Oh7XCWIREWTAOm%2BS%2BcE1eMJA9tXyNoTRgxC7kPb7CEqwmq4d%2FqC2BYsipas9jsbR7OkjI%2FA%3D%3D"
+							+ "&dataType=JSON"            // JSON, XML
+							+ "&numOfRows=290"             // 페이지 ROWS
+							+ "&pageNo=1"                 // 페이지 번호
+							+ "&base_date=" + yesterday      // 발표일자
+							+ "&base_time=2300"           // 발표시각
+							+ "&nx=" + city.getX()                    // 예보지점 X 좌표
+							+ "&ny=" + city.getY();                  // 예보지점 Y 좌표
+
+
+					HashMap<String, Object> resultMap = null;
+					try {
+
+						resultMap = dao.getDataFromJson(url, "UTF-8", "get", "");
+					} catch (Exception e) {
+
+						jObject.put("local", "error");
+					}
+
+					JSONObject json = new JSONObject(resultMap);
+
+					JSONObject parse_response = json.getJSONObject("response");
+
+					// System.out.println(parse_response); // test
+
+					JSONObject parse_header = (JSONObject) parse_response.get("header");
+
+					String parse_resultCode = (String) parse_header.get("resultCode");
+
+					// System.out.println("결과값2 : " + parse_resultCode); // test
+
+					if (parse_resultCode.equals("00")) {
+
+						JSONObject parse_body = (JSONObject) parse_response.get("body");
+
+						JSONObject parse_items = (JSONObject) parse_body.get("items");
+
+						JSONArray parse_item = (JSONArray) parse_items.get("item");
+
+						String category;
+						JSONObject weather;
+
+						for (int j = 0; j < parse_item.length(); j++) {
+							weather = (JSONObject) parse_item.get(j);
+							String fcstTime = (String) weather.get("fcstTime");
+							String fcstValue = (String) weather.get("fcstValue");
+							category = (String) weather.get("category");
+
+							// 결과 출력 test
+							/*
+							System.out.print("배열의 " + j + "번째 요소");
+							System.out.print("   시간 : " + fcstTime);
+							System.out.print("   카테고리 : " + category);
+							System.out.print("   값 : " + fcstValue);
+							System.out.println();
+							*/
+
+							// System.out.println("현재시간 맞니?" + outtime); // test
+
+							if (fcstTime.equals(outtime)) { // 현재시간에서
+								if (category.equals("SKY")) { // 날씨
+									jObject.put("sky", fcstValue);
+								}
+							}
+							if (category.equals("TMN")) //최저 0600시
+								jObject.put("tmn", fcstValue);
+							if (category.equals("TMX")) // 최고 1500시
+								jObject.put("tmx", fcstValue);
+
+						}
+						out.print(jObject);
+						break;
+					} else {
+						// result값이 00이 아님
+						//jObject.put("local", "error");
+						break;
+					}
+				} else {
+					//jObject.put("local", "error");
+					//out.print(jObject);
+					break;
+				}
+			} else {
+				//jObject.put("local", "error");
+				//out.print(jObject);
+				break;
+
+			}
+		}
+		System.out.println(jObject);
 	}
 }

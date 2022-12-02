@@ -26,57 +26,51 @@
 </head>
 
 <body>
-
     <div id="loading"><img id="loading-image" src="/images/loading.gif" alt="Loading..." /></div>
-
-    <center>
-        <h1>기온 별 옷차림</h1>
+    <h1>기온 별 옷차림</h1>
+    <form onSubmit="return false;">
         <div class="title">
             <label for="local">시/군/구 읍/면/동</label>
         </div>
         <div class="title">
-            <input id="local" type="text" class="input">
+            <input id="local" type="text" class="input" autocomplete="off">
+            <input type="submit" value="조회" id="load" class="submit">
         </div>
-        <div class="title">
-            <input type="button" value="확인" id="load" class="submit">
-        </div>
+    </form>
 
-        <div id="container" style="display: none;">
-            <div id="errorhp">
-                <h4 id="errorhour"></h4>시 데이터가 존재하지 않아 이전 데이터를 불러옵니다.<br><br><br>
-            </div>
-            기준 시간 :
-            <h4 id="baseTime"></h4><br><br>
-            현재 기온은
-            <h4 id="temp"></h4> 입니다.<br><br>
-            추천하는 옷차림은 '
-            <h4 id="info"></h4>'입니다.<br><br>
-            현재 하늘은 '
-            <h4 id="sky"></h4>'상태입니다.<br><br>
-            현재 습도는 '<h4 id="reh"></h4>'입니다.<br><br>
-            바람은 '<h4 id="compass"></h4><h4 id="wsd"></h4>'이고, <h4 id="pty"></h4>
+    <div id="container" style="display: none;">
+        <div id="errorhp">
+            <h4 id="errorhour"></h4>시 데이터가 존재하지 않아 이전 데이터를 불러옵니다.<br><br><br>
         </div>
+        <h4 id="baseTime"></h4> 기상 정보입니다.<br><br>
+        오늘 최저 온도는 <h4 id="tmn"></h4>이고, 최고 온도는 <h4 id="tmx"></h4>입니다.<br><br>
+        현재 기온은 <h4 id="temp"></h4> 입니다.<br><br>
+        추천하는 옷차림은 '<h4 id="info"></h4>'입니다.<br><br>
+        현재 하늘은 <h4 id="sky"></h4><br><br>
+        현재 습도는 '<h4 id="reh"></h4>'입니다.<br><br>
+        바람은 '<h4 id="compass"></h4><h4 id="wsd"></h4>'이고, <h4 id="pty"></h4><br>
+        <p style="font-size:14px; color: red; margin:5px;">※ 최저, 최고 온도 및 구름은 전날 23시 예측 자료이므로, 차이가 있을 수 있습니다.</p><br>
+    </div>
 
-
-        <div id="error" style="display: none;">
-            <p class="errorp"></p>
-        </div>
+    <div id="error" style="display: none;">
+        <p class="errorp"></p>
+    </div>
 
     <script>
-    $(function () {
-        var availableTags = [<c:forEach var="object" items="${val}">"${object}", </c:forEach>];
-        $("#local").autocomplete({
-            source: availableTags
+        $(function () {
+            var availableTags = [<c:forEach var="object" items="${val}">"${object}", </c:forEach>];
+            $("#local").autocomplete({
+                source: availableTags
+            });
         });
-    });
-      $('#load').click(function () {
-        $('#loading').show();
-        window.setTimeout(function(){
-                         load();
-                          }, 10);
+        $('#load').click(function () {
+            $('#loading').show();
+            window.setTimeout(function () {
+                load();
+            }, 10);
 
-      });
+        });
     </script>
-    <script src="/js/load.js?aaa"></script>
+    <script src="/js/load.js"></script>
 </body>
 </html>

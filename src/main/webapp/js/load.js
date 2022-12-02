@@ -1,5 +1,4 @@
-  function load() {
-
+function load() {
 
     if ($('#local').val() === "") {
 
@@ -40,36 +39,43 @@
                     $("#container").show();
                     $("#error").hide();
                     $("#errorhp").hide();
-                    //$("#time").text(jsonInfo.time)
                     $("#temp").text(jsonInfo.temp + "°C")
                     $("#info").text(jsonInfo.info)
                     $("#sky").text(jsonInfo.sky)
                     $("#wsd").text("(" + jsonInfo.wsd + "m/s)")
                     $("#reh").text(jsonInfo.reh + "%")
-                    //$("#pty").text(jsonInfo.pty)
                     $("#baseTime").text(jsonInfo.baseTime)
                     $("#compass").text(jsonInfo.compass)
-                    if(jsonInfo.pty === '0')
+                    $("#tmn").text(jsonInfo.tmn + "°C")
+                    $("#tmx").text(jsonInfo.tmx + "°C")
+                    if (jsonInfo.pty === '0')
                         $("#pty").text('비나 눈이 내리지 않습니다.')
-                    if(jsonInfo.pty === '1')
+                    if (jsonInfo.pty === '1')
                         $("#pty").text('비가 내리는 중입니다.')
-                    if(jsonInfo.pty === '2')
+                    if (jsonInfo.pty === '2')
                         $("#pty").text('비와 눈이 내리는 중입니다.')
-                    if(jsonInfo.pty === '3')
+                    if (jsonInfo.pty === '3')
                         $("#pty").text('비눈이 내리는 중입니다.')
-                    if(jsonInfo.pty === '5')
+                    if (jsonInfo.pty === '5')
                         $("#pty").text('약간의 빗방울만 떨어지고 있습니다.')
-                    if(jsonInfo.pty === '6')
+                    if (jsonInfo.pty === '6')
                         $("#pty").text('약간의 빗방울 떨어지고 눈날림이 있습니다.')
-                    if(jsonInfo.pty === '7')
+                    if (jsonInfo.pty === '7')
                         $("#pty").text('약간의 눈날림이 있습니다.')
 
-                    if(jsonInfo.errorcheck === '1'){
+                    if (jsonInfo.sky === '1')
+                        $("#sky").text('맑습니다.')
+                    if (jsonInfo.sky === '3')
+                        $("#sky").text('구름이 많습니다.')
+                    if (jsonInfo.sky === '4')
+                        $("#sky").text('흐립니다.')
+
+                    if (jsonInfo.errorcheck === '1') {
                         $("#errorhour").text(jsonInfo.errorhour)
                         $("#errorhp").show();
-                        }
-                }
+                    }
 
+                }
 
                 $('#loading').hide();
             }

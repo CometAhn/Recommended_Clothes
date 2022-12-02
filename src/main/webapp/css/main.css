@@ -37,6 +37,7 @@ body {
     font-family: 'Pretendard-Regular';
     /*background-image: url(../img/a566df2b-7ce7-4f83-a490-5df2ef949817.png);*/
     background-color: white;
+    text-align: center;
 }
 
 h1 {
@@ -84,11 +85,12 @@ h4 {
 .input {
     font-family: 'Pretendard-Regular';
     width: 300px;
-    padding: 10px;
+    margin: 10px 20px;
     height: 40px;
     outline-color: #167699;
     border: 1px solid #ddd;
     text-align: center;
+    font-size: 16px;
 }
 
 .submit {
@@ -164,11 +166,12 @@ label {
     .input {
         font-family: 'Pretendard-Regular';
         width: 300px;
-        padding: 10px;
+        margin: 10px 20px;
         height: 40px;
         outline-color: #167699;
         border: 1px solid #ddd;
         text-align: center;
+        font-size: 16px;
     }
 
     .submit {
